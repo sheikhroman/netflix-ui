@@ -2,9 +2,31 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import BackgroundImage from '../components/BackgroundImage';
 import Header from '../components/Header';
+import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import {firebaseAuth} from "../utils/firebase-config"
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
+
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate()
+  const [formValues, setFormValues] = useState({
+    email: "",
+    password: "",
+  });
+  const handleSignIn = async () => {
+    try {
+      const { email, password } = formValues;
+      await createUserWithEmailAndPassword(firebaseAuth ,email,password)
+    } catch(err) {
+      console.log(err);
+    }
+  };
+
+  onAuthStateChanged(firebaseAuth, (currentUser) => {
+  if(currentUser) navigate("/")
+})
+
   return (
     <Container showPassword = {setShowPassword}>
           <BackgroundImage />
@@ -17,16 +39,16 @@ export default function Signup() {
                     <h6>Ready to watch? Enter your email to create or restart mempership</h6>
                 </div>
                 <div className="form">
-            <input type="text" placeholder='Email Address' name='email' />
+            <input type="text" placeholder='Email Address' name='email' value={formValues.email}onChange={(e)=>setFormValues({...formValues,[e.target.name]:e.target.value,})} />
             {
-              showPassword && <input type="password" placeholder='password' name='password' />
+              showPassword && <input type="password" placeholder='password' name='password'  value={formValues.password}onChange={(e)=>setFormValues({...formValues,[e.target.name]:e.target.value,})}/>
             }
             
             {
               !showPassword && <button onClick={()=>setShowPassword(true)}>Get Started</button>
             }
                 </div>
-                <button>Sign Up</button>
+                <button onClick={handleSignIn}>Sign Up</button>
                 </div>
               </div>
       </Container>
