@@ -56,5 +56,21 @@ export default function Navbar({isScrolled}) {
             </Container>)
 }
 const Container = styled.div`
-
+.scrolled{
+    background-color: black;
+}
+nav{
+    position: sticky;
+    top: 0;
+    height: 6.5rem;
+    width: 100%;
+    .left{
+        gap: 2rem;
+        .brand{
+            img{
+                height: 4rem;
+            }
+        }
+    }
+}
 `;
