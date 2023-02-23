@@ -57,5 +57,5 @@ export default function Card({ movieData, isLiked = false }) {
 }
 
 const Container = styled.div`
-
+/*comment*/
 `;
