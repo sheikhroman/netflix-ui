@@ -43,6 +43,7 @@ const getRawData = async (api, genres, paging = false) => {
     createArrayFromRawData(results, moviesArray, genres);
   }
   return moviesArray;
+  // console.log(moviesArray)
 };
 
 export const fetchDataByGenre = createAsyncThunk(
