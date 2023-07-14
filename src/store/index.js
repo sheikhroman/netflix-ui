@@ -126,3 +126,6 @@ export const store = configureStore({
 });
 
 export const { setGenres, setMovies } = NetflixSlice.actions;
+
+
+//2.44 min
